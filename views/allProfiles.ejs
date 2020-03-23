@@ -12,10 +12,11 @@
 
     <div class="page-header text-center">
         <img src="./img/topSecret.jpg" alt="">
-        <h1> Welcome to Your Secret Grocery List,  </h1>
+        <h1> Your Secretive Grocery List:  </h1>
         <h1> <span class="fas fa-user-secret"></span> <%= user.local.email %> <span class="fas fa-user-secret"></span> </h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-        <a href="/profilesAll" class="btn btn-default btn-sm"> SNOOP ON YOUR NEIGHBORS GROCERIES</a>
+        <a href="/profile" class="btn btn-default btn-sm"> Back to Only Your Items</a>
+
     </div>
 
     <div class="row">
@@ -23,28 +24,25 @@
         <!-- YOUR ACTUAL MESSAGES  -->
         <section id="HappyList">
         <div class="col-sm-12">
-          <h3>Enter your grocery items down below  </h3>
-          <ul class="messages">
-              <% for(var i=0; i< messages.length; i++) {%>
-                <% if (user.local.email == messages[i].name) { %>
-                  <li class="message">
-                    <span><%= messages[i].name%></span>
-                    <span><%= messages[i].msg %></span>
-                    <span><%= messages[i].thumbUp -= messages[i].thumbDown %></span>
-                    <span><i class="fa fa-heart" aria-hidden="true"></i></span>
-                    <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-                    <span><i class="fa fa-trash" aria-hidden="true"></i></span>
-                  </li>
-                <% } %>
-              <% } %>
-          </ul>
-          <h2>Add an item to your grocery list: </h2>
+          <h2>This is what EVERYONE had on their grocery list </h2>
+<ul class="messages">
+<% for(var i=0; i<messages.length; i++) {%>
+  <li class="message">
+    <span><%= messages[i].name %></span>
+    <span><%= messages[i].msg %></span>
+    <span><%= messages[i].thumbUp %></span>
+    <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+    <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+    <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+  </li>
+<% } %>
+</ul>
         <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
+          <!-- <form action="/messages" method="POST">
             <input type="text" value="<%= user.local.email %>" name="name">
             <input type="text" placeholder="message" name="msg">
             <button type="submit">Submit</button>
-          </form>
+          </form> -->
         </div>
       </section>
 

@@ -9,9 +9,24 @@ module.exports = function(app, passport, db) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        db.collection('messages').find().toArray((err, result) => {
+        db.collection('foods').find().toArray((err, result) => {
           if (err) return console.log(err)
+          // console.log(req.user, 'this is req')
+          // console.log(res, 'this is RES')
+          // console.log(result, 'this is RESULT')
           res.render('profile.ejs', {
+            user : req.user,
+            messages: result
+          })
+        })
+    });
+//
+
+    // PROFILES ALL ==============================
+    app.get('/profilesAll', isLoggedIn, function(req, res) {
+        db.collection('foods').find().toArray((err, result) => {
+          if (err) return console.log(err)
+          res.render('allProfiles.ejs', {
             user : req.user,
             messages: result
           })
@@ -27,15 +42,15 @@ module.exports = function(app, passport, db) {
 // message board routes ===============================================================
 
     app.post('/messages', (req, res) => {
-      db.collection('messages').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
+      db.collection('foods').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
       })
     })
-
+    //FETCH MESSAGES UP
     app.put('/messages', (req, res) => {
-      db.collection('messages')
+      db.collection('foods')
       .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
         $set: {
           thumbUp:req.body.thumbUp + 1
@@ -48,9 +63,26 @@ module.exports = function(app, passport, db) {
         res.send(result)
       })
     })
+    ///FETCH MESSAGES DOWN
+    app.put('/thumbDown', (req, res) => {
+      db.collection('foods')
+      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
+        $set: {
+          thumbUp:req.body.thumbUp - 1,
+
+        }
+      }, {
+        sort: {_id: -1},
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      })
+    })
+
 
     app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('foods').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })

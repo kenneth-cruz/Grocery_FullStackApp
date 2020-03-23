@@ -1,0 +1,10 @@
+body{
+  padding-top:80px;
+  word-wrap:break-word;
+  color: brown;
+  background-image: url(./img/fastFoodBackground2.jpg);
+  background-size: cover;
+}
+img{
+  height: 200px;
+}

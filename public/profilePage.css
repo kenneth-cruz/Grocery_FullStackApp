@@ -1,0 +1,36 @@
+
+*{
+  box-sizing: border-box;
+}
+body{
+  background: skyblue;
+  background-image: url(./img/topFoodBackground.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: 90%;
+  padding-top:80px;
+  word-wrap:break-word;
+  color: black;
+}
+
+img{
+  height: 200px;
+}
+
+.messages{
+  list-style: decimal;
+  list-style-position: inside;
+}
+
+
+#HappyList{
+  display:flex;
+  flex-wrap:wrap;
+  text-align:center;
+}
+#profileInfo{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 26%;
+}
